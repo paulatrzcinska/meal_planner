@@ -29,14 +29,20 @@ public class Signup extends Controller {
         }
         
         // check if the username is valid
-        // sprawdzenie czy uzytkownik juz istnieje xD
+        if(!filledForm.hasErrors()) {
+            if(User.validUsername(filledForm.field("username").value()) != null) {
+                filledForm.reject("username", "This username is already taken");
+            }
+        }
         
         if(filledForm.hasErrors()) {
             return badRequest(signup.render(filledForm));
         } else {
-            User created = filledForm.get();
-            return ok(summary.render(created));
+            User.createAccount(filledForm.get());
+            flash("success", "GZ");
+            return ok(summary.render(filledForm.get()));
         }
+       
     }
 
 }

@@ -46,17 +46,17 @@
             <legend>Other information</legend>
             
              @inputText(
-                signupForm("userDetails.name"), '_label -> "Name",
+                signupForm("name"), '_label -> "Name",
                 '_help -> "Enter a valid name."
             )
 
             @inputText(
-                signupForm("userDetails.surname"), '_label -> "Surname",
+                signupForm("surname"), '_label -> "Surname",
                 '_help -> "Enter a valid surname."
             )
 
             @select(
-                signupForm("userDetails.gender"), 
+                signupForm("gender"), 
                 options = options(("true","Male"),("false","Female")),
                 '_default -> "--- Choose gender ---",
                 '_label -> "Gender",
@@ -64,17 +64,17 @@
             )
             
             @inputText(
-                signupForm("userDetails.weight"), '_label -> "Weight",
+                signupForm("weight"), '_label -> "Weight",
                 '_help -> "Enter a valid weight."
             )
 
             @inputText(
-                signupForm("userDetails.height"), '_label -> "Height",
+                signupForm("height"), '_label -> "Height",
                 '_help -> "Enter a valid height."
             )
 
             @inputText(
-                signupForm("userDetails.age"), '_label -> "Age",
+                signupForm("age"), '_label -> "Age",
                 '_help -> "Enter a valid age."
             )
             

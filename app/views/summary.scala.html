@@ -21,48 +21,32 @@
     <h6>Name</h6>
     
     <p>
-        @user.userDetails.name
-        @user.userDetails.surname
+        @user.name
+        @user.surname
     </p>
     
     <h6>Gender</h6>
     
     <p>
-        @if(user.userDetails.gender == null) {
-            <em>Not specified</em>
-        } else {
-            @user.userDetails.gender
-        }
+        @user.gender
     </p>
     
     <h6>Weight</h6>
     
     <p>
-        @if(user.userDetails.weight == null) {
-            <em>Not specified</em>
-        } else {
-            @user.userDetails.weight kg
-        }
+        @user.weight kg
     </p>
     
     <h6>Height</h6>
     
     <p>
-        @if(user.userDetails.height == null) {
-            <em>Not specified</em>
-        } else {
-            @user.userDetails.height
-        }
+        @user.height cm
     </p>
     
     <h6>Age</h6>
     
     <p>
-        @if(user.userDetails.age == null) {
-            <em>Not specified</em>
-        } else {
-            @user.userDetails.age
-        }
+        @user.age
     </p>
     
 }
