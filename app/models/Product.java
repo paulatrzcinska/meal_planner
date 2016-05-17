@@ -11,8 +11,10 @@ import javax.persistence.*;
 public class Product extends Model {
 
     @Id
-    public String name;
+    public int id;
     
+    @Required
+    public String name;
     @Required
 	public int caloriesPer100Grams;
 	@Required
@@ -23,5 +25,17 @@ public class Product extends Model {
 	public int proteinPer100Grams;
 	@Required
 	public int sugarPer100Grams;
+    
+    public static Finder<Long,Product> find = new Finder(
+        Long.class, Product.class
+    );
+    
+    public static List<Product> all() {
+        return find.all();
+    }
+    
+    public static void create(Product product) {
+        product.save();
+    }
     
 }

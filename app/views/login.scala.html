@@ -12,7 +12,7 @@
     @helper.form(action = routes.Login.submit) {
         
         <fieldset>
-            <legend>Account information</legend>
+            <legend>Login</legend>
             
             @inputText(
                 loginForm("username"), 
@@ -30,9 +30,8 @@
             
         </fieldset>
         
-        <div class="actions">
-            <input type="submit" class="btn primary" value="Login">
-        </div>
+    
+        <input type="submit" class="pull-right actions btn primary" value="Login">
         
     }
     

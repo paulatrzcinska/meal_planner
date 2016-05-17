@@ -13,7 +13,9 @@ public class Products extends Controller {
     final static Form<Product> productForm = form(Product.class);
     
     public static Result index() {
-        return TODO;
+        return ok(
+            products.render(Product.all(), productForm)
+        );
     }
     
     public static Result showAddForm() {
@@ -23,7 +25,13 @@ public class Products extends Controller {
     }
     
     public static Result add() {
-        return TODO;
+        Form<Product> filledForm = productForm.bindFromRequest();
+        if(filledForm.hasErrors()) {
+            return badRequest(newProduct.render(filledForm));
+        } else {
+            Product.create(filledForm.get());
+            return redirect(routes.Products.index());
+        }
     }
 
 }

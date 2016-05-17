@@ -1,0 +1,50 @@
+@(products: List[Product], productForm: Form[Product])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@title = {
+    Products
+}
+
+@main(title, nav="Products") {
+    @if(products.size() == 0) {
+        
+        <div class="well">
+            <em>Nothing to display</em>
+        </div>
+        
+    } else {
+        
+        <table class="zebra-striped">
+            <thead style="font-weight:bold">
+                <tr>
+                    <th>Product name</th>
+                    <th>caloriesPer100Grams</th>
+                    <th>carbPer100Grams</th>
+                    <th>fatPer100Grams</th>
+                    <th>proteinPer100Grams</th>
+                    <th>sugarPer100Grams</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @for(product <- products) {
+                    <tr>
+                        <td>@product.name</td>
+                        <td>@product.caloriesPer100Grams</td>
+                        <td>@product.carbPer100Grams</td>
+                        <td>@product.fatPer100Grams</td>
+                        <td>@product.proteinPer100Grams</td>
+                        <td>@product.sugarPer100Grams</td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    
+
+            <a class="pull-right actions btn success" href="@routes.Products.showAddForm()">Add a new product</a>
+
+    }
+}
