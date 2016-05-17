@@ -1,0 +1,56 @@
+@(productForm: Form[Product])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@title = {
+    Add new product 
+}
+
+@main(title, nav = "newProduct") {
+    
+    @helper.form(action = routes.Products.add) {
+        
+        <fieldset>
+            <legend>Product information</legend>
+            
+            @inputText(
+                productForm("name"),
+                '_label -> "Nazwa:"
+             )
+            
+            @inputText(
+                productForm("caloriesPer100Grams"), 
+                '_label -> "Liczba kalorii w 100 gramach:"
+            )
+            
+            @inputText(
+                productForm("carbPer100Grams"), 
+                '_label -> "Liczba węglowodanów w 100 gramach:"
+            )
+            
+            @inputText(
+                productForm("fatPer100Grams"), 
+                '_label -> "Liczba tłuszczy w 100 gramach:"
+            )
+            
+            @inputText(
+                productForm("proteinPer100Grams"), 
+                '_label -> "Liczba białek w 100 gramach:"
+            )
+            
+            @inputText(
+                productForm("sugarPer100Grams"), 
+                '_label -> "Liczba cukru w 100 gramach:"
+            )
+
+            
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" class="btn primary" value="Add">
+        </div>
+        
+    }
+    
+}
