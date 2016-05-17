@@ -1,4 +1,4 @@
-@(loginForm: Form[User])
+@(loginForm: Form[Login])
 
 @import helper._
 @import helper.twitterBootstrap._
@@ -8,6 +8,17 @@
 }
 
 @main(title, nav = "login") {
+
+    @if(flash.contains("success")){
+	    <div class="alert alert-success">
+	        @flash.get("success")
+	    </div>
+	}
+    @if(flash.contains("fail")){
+	    <div class="alert alert-error">
+	        @flash.get("fail")
+	    </div>
+	}
     
     @helper.form(action = routes.Login.submit) {
         

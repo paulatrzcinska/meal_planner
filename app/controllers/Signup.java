@@ -39,7 +39,6 @@ public class Signup extends Controller {
             return badRequest(signup.render(filledForm));
         } else {
             User.createAccount(filledForm.get());
-            flash("success", "GZ");
             return ok(summary.render(filledForm.get()));
         }
        

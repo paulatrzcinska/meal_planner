@@ -18,6 +18,7 @@ public class Products extends Controller {
         );
     }
     
+    @Security.Authenticated
     public static Result showAddForm() {
         return ok(
             newProduct.render(productForm)

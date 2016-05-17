@@ -65,5 +65,9 @@ public class User extends Model {
 	public static void createAccount(User account) {
 		account.save();
 	}
+	
+	public static User auth(String username, String password) {
+		return find.where().eq("username", username).eq("password", password).findUnique();
+	}
 
 }
