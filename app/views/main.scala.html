@@ -1,0 +1,57 @@
+@(title: Html, nav: String = "")(content: Html)
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>@title</title>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    </head>
+    <body>
+
+        <div class="topbar">
+            <div class="fill">
+                <div class="container">
+                    <a class="brand" href="@routes.Login.index()">meal_planner</a>
+                    <ul class="nav">
+                        <li class="@("active".when(nav == "login"))">
+                            <a href="@routes.Login.index()">Login</a>
+                        </li>
+                        <li class="@("active".when(nav == "signup"))">
+                            <a href="@routes.Signup.index()">Sign up</a>
+                        </li>
+                        <li class="@("active".when(nav == "products"))">
+                            <a href="@routes.Login.index()">Products</a>
+                        </li>
+						<li class="@("active".when(nav == "planyourmeal"))">
+	                        <a href="@routes.Login.index()">Plan your meal</a>
+	                    </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+
+            <div class="content">
+                
+                <div class="page-header">
+                    <h1>@title</h1>
+                </div>
+
+                <div class="row">
+                    <div class="span14">
+                        @content
+                    </div>
+                </div>
+                
+            </div>
+
+        </div>
+        
+        
+    </body>
+</html>

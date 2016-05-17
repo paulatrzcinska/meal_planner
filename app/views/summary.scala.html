@@ -1,0 +1,68 @@
+@(user: User)
+
+@main(Html("Account created!"), nav = "wizard") {
+    
+    <h2>Your account:</h2>
+    
+    <h6>Username</h6>
+    
+    <p>
+        @user.username
+    </p>
+    
+    <h6>Email</h6>
+    
+    <p>
+        @user.email
+    </p>
+    
+    <h2>Oher informations:</h2>
+    
+    <h6>Name</h6>
+    
+    <p>
+        @user.userDetails.name
+        @user.userDetails.surname
+    </p>
+    
+    <h6>Gender</h6>
+    
+    <p>
+        @if(user.userDetails.gender == null) {
+            <em>Not specified</em>
+        } else {
+            @user.userDetails.gender
+        }
+    </p>
+    
+    <h6>Weight</h6>
+    
+    <p>
+        @if(user.userDetails.weight == null) {
+            <em>Not specified</em>
+        } else {
+            @user.userDetails.weight kg
+        }
+    </p>
+    
+    <h6>Height</h6>
+    
+    <p>
+        @if(user.userDetails.height == null) {
+            <em>Not specified</em>
+        } else {
+            @user.userDetails.height
+        }
+    </p>
+    
+    <h6>Age</h6>
+    
+    <p>
+        @if(user.userDetails.age == null) {
+            <em>Not specified</em>
+        } else {
+            @user.userDetails.age
+        }
+    </p>
+    
+}

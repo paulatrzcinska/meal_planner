@@ -1,0 +1,91 @@
+@(signupForm: Form[User])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@title = {
+    Sign Up
+}
+
+@main(title, nav = "signup") {
+    
+    @helper.form(action = routes.Signup.submit) {
+        
+        <fieldset>
+            <legend>Account information</legend>
+            
+            @inputText(
+                signupForm("username"), 
+                '_label -> "Username", 
+                '_help -> "Please choose a valid username.",
+                '_error -> signupForm.globalError
+            )
+            
+            @inputText(
+                signupForm("email"), '_label -> "Email",
+                '_help -> "Enter a valid email address."
+            )
+            
+            @inputPassword(
+                signupForm("password"), 
+                '_label -> "Password",
+                '_help -> "A password must be at least 6 characters. "
+            )
+            
+            @inputPassword(
+                signupForm("repeatPassword"), 
+                '_label -> "Repeat password",
+                '_help -> "Please repeat your password again.",
+                '_error -> signupForm.error("password")
+            )
+            
+        </fieldset>
+        
+        <fieldset>
+            
+            <legend>Other information</legend>
+            
+             @inputText(
+                signupForm("userDetails.name"), '_label -> "Name",
+                '_help -> "Enter a valid name."
+            )
+
+            @inputText(
+                signupForm("userDetails.surname"), '_label -> "Surname",
+                '_help -> "Enter a valid surname."
+            )
+
+            @select(
+                signupForm("userDetails.gender"), 
+                options = options(("true","Male"),("false","Female")),
+                '_default -> "--- Choose gender ---",
+                '_label -> "Gender",
+                '_help -> "Enter a valid gender."
+            )
+            
+            @inputText(
+                signupForm("userDetails.weight"), '_label -> "Weight",
+                '_help -> "Enter a valid weight."
+            )
+
+            @inputText(
+                signupForm("userDetails.height"), '_label -> "Height",
+                '_help -> "Enter a valid height."
+            )
+
+            @inputText(
+                signupForm("userDetails.age"), '_label -> "Age",
+                '_help -> "Enter a valid age."
+            )
+            
+              
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" class="btn primary" value="Sign Up">
+            <a href="@routes.Login.index" class="btn">Cancel</a>
+        </div>
+        
+    }
+    
+}

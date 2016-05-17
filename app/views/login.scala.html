@@ -1,0 +1,39 @@
+@(loginForm: Form[User])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@title = {
+    Zaloguj się 
+}
+
+@main(title, nav = "login") {
+    
+    @helper.form(action = routes.Login.submit) {
+        
+        <fieldset>
+            <legend>Account information</legend>
+            
+            @inputText(
+                loginForm("username"), 
+                '_label -> "Username", 
+                '_help -> "Please choose a valid username."
+            )
+
+            
+            @inputPassword(
+                loginForm("password"), 
+                '_label -> "Password",
+                '_help -> "A password must be at least 6 characters. "
+            )
+
+            
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" class="btn primary" value="Login">
+        </div>
+        
+    }
+    
+}
