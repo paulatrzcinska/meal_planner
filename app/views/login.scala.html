@@ -10,40 +10,48 @@
 @main(title, nav = "login") {
 
     @if(flash.contains("success")){
-	    <div class="alert alert-success">
+    <div class="row">
+	    <div class="alert alert-success col-md-offset-4 col-md-4">
 	        @flash.get("success")
 	    </div>
+    </div>
 	}
     @if(flash.contains("fail")){
-	    <div class="alert alert-error">
+    <div class="row">    
+	    <div class="alert alert-danger col-md-offset-4 col-md-4">
 	        @flash.get("fail")
 	    </div>
+    </div>
 	}
-    
-    @helper.form(action = routes.Login.submit) {
-        
-        <fieldset>
-            <legend>Login</legend>
+<div class="container">
+    <div class="row">
+ 
+            @helper.form(action = routes.Login.submit) {
             
-            @inputText(
-                loginForm("username"), 
-                '_label -> "Username", 
-                '_help -> "Please choose a valid username."
-            )
-
             
-            @inputPassword(
-                loginForm("password"), 
-                '_label -> "Password",
-                '_help -> "A password must be at least 6 characters. "
-            )
-
-            
-        </fieldset>
-        
-    
-        <input type="submit" class="pull-right actions btn primary" value="Login">
-        
+            <fieldset>    
+                 <div class="form-group">  
+                    <label class="col-md-offset-4 col-md-1 control-label" for="username">Username:</label>
+                    <div class="col-md-3">
+                        <input class="form-control input-md" type="text" name="username" id="username" value="">
+                        <span class="help-block">Please choose a valid username.</span> 
+                    </div>
+                 </div>
+                 
+                 <div class="form-group">  
+                    <label class="col-md-offset-4 col-md-1 control-label" for="password">Password:</label>
+                    <div class="col-md-3">
+                        <input class="form-control input-md" type="password" name="password" id="password" value="">
+                        <span class="help-block">A password must be at least 6 characters.</span>
+                    </div>
+                 </div>
+           
+                <div class="col-md-offset-4 col-md-4">
+                    <button type="submit" class="pull-right actions btn btn-success">Login</button>
+                </div>
+           </fieldset>
+    </div>
+</div>
     }
     
 }

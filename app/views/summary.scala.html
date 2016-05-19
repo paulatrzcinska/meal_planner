@@ -27,9 +27,12 @@
     
     <h6>Gender</h6>
     
-    <p>
-        @user.gender
-    </p>
+    @if(user.gender){
+        <p>male</p>
+    } else{
+        <p>female</p>
+    }
+    
     
     <h6>Weight</h6>
     
