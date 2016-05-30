@@ -15,7 +15,7 @@ GET     /signup                     controllers.Signup.index()
 POST    /signup                     controllers.Signup.submit()
 
 # Products
-GET     /products                   controllers.Products.index()
+GET     /products                   controllers.Products.products(p:Int ?=0, s ?= "name", o ?= "asc", f ?= "")
 GET     /products/add               controllers.Products.showAddForm()
 POST    /products/add               controllers.Products.add()
 
