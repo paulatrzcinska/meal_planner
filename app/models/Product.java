@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class Product extends Model {
 
     @Id
-    public int id;
+    public Long id;
     
     @Required
     public String name;
@@ -25,6 +25,9 @@ public class Product extends Model {
 	public int proteinPer100Grams;
 	@Required
 	public int sugarPer100Grams;
+    
+    @ManyToOne
+    public ProductMeal productMeal;
     
     public static Finder<Long,Product> find = new Finder(
         Long.class, Product.class
