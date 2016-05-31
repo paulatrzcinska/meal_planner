@@ -16,16 +16,18 @@ public class ProductMeal extends Model {
     @ManyToOne
     public User user;
     
-    @OneToMany(mappedBy = "productMeal")
-	public List<Product> products = new ArrayList<>();
+    @ManyToOne
+    public Product product;
     
     @ManyToOne
     public MealTime mealTime;
     
 	@Required
     public int mealWeight;
+    
     @Required
     public String mealtimeID;
+    
     @Required
     String date;
     
