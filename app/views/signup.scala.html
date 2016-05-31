@@ -9,82 +9,103 @@
 
 @main(title, nav = "signup") {
     
-    @helper.form(action = routes.Signup.submit) {
-        
-        <fieldset>
-            <legend>Account information</legend>
-            
-            @inputText(
-                signupForm("username"), 
-                '_label -> "Username", 
-                '_help -> "Please choose a valid username.",
-                '_error -> signupForm.globalError
-            )
-            
-            @inputText(
-                signupForm("email"), '_label -> "Email",
-                '_help -> "Enter a valid email address."
-            )
-            
-            @inputPassword(
-                signupForm("password"), 
-                '_label -> "Password",
-                '_help -> "A password must be at least 6 characters. "
-            )
-            
-            @inputPassword(
-                signupForm("repeatPassword"), 
-                '_label -> "Repeat password",
-                '_help -> "Please repeat your password again.",
-                '_error -> signupForm.error("password")
-            )
-            
-        </fieldset>
-        
-        <fieldset>
-            
-            <legend>Other information</legend>
-            
-             @inputText(
-                signupForm("name"), '_label -> "Name",
-                '_help -> "Enter a valid name."
-            )
+@helper.form(action = routes.Signup.submit) {
+ <div class="row additional-space">
+    <div class="col-md-offset-4 col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-default panel-heading"><h2>New account</h2></div>
+            <div class="panel-body">
+                <div clas="container">
+                    <div class="row">
 
-            @inputText(
-                signupForm("surname"), '_label -> "Surname",
-                '_help -> "Enter a valid surname."
-            )
+                    
+                        <div class="col-md-12">
+                            <div class="input-group input-group-lg margin-bottom-3">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                </span>
+                                <input class="form-control" aria-describedby="basic-addon1" type="text" name="username" id="username" placeholder="Username" required>
+                            </div>
 
-            @select(
-                signupForm("gender"), 
-                options = options(("true","Male"),("false","Female")),
-                '_default -> "--- Choose gender ---",
-                '_label -> "Gender",
-                '_help -> "Enter a valid gender."
-            )
-            
-            @inputText(
-                signupForm("weight"), '_label -> "Weight",
-                '_help -> "Enter a valid weight."
-            )
+                            <div class="input-group input-group-lg margin-bottom-3">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                                </span>
+                                <input class="form-control" aria-describedby="basic-addon1" type="email" name="email" id="email" placeholder="Email address" required>
+                            </div>
 
-            @inputText(
-                signupForm("height"), '_label -> "Height",
-                '_help -> "Enter a valid height."
-            )
+                            <div class="input-group input-group-lg margin-bottom-3">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-lock" aria-hidden="true"></i>
+                                </span>
+                                <input class="form-control" aria-describedby="basic-addon1" type="password" name="password" id="password" placeholder="Password (min. 6 characters)" required>
+                            </div>
 
-            @inputText(
-                signupForm("age"), '_label -> "Age",
-                '_help -> "Enter a valid age."
-            )
-            
-              
-        </fieldset>
-        
-        <input type="submit" class="pull-right actions btn primary" value="Sign Up">
-        <a href="@routes.Login.index" class="pull-right sep actions btn">Cancel</a>
-        
-        
-    }
+                            <div class="input-group input-group-lg margin-bottom-10">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-lock" aria-hidden="true"></i>
+                                </span>
+                                <input class="form-control" aria-describedby="basic-addon1" type="password" name="repeatPassword" id="repeatPassword" placeholder="Repeat password" required>
+                            </div>
+
+                            <div class="input-group input-group-lg margin-bottom-3">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                </span>
+                                <input class="form-control" aria-describedby="basic-addon1" type="text" name="name" id="name" placeholder="Your name" required>
+                            </div>
+
+                            <div class="input-group input-group-lg margin-bottom-3">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                </span>
+                                <input class="form-control" aria-describedby="basic-addon1" type="text" name="surname" id="surname" placeholder="Your surname" required>
+                            </div>
+
+                            <div class="input-group input-group-lg margin-bottom-3">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-venus-mars" aria-hidden="true"></i>
+                                </span>
+                                <select name="gender" class="form-control" aria-describedby="basic-addon1" id="gender" required>
+                                    <option value="" disabled selected hidden>Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+
+                            <div class="input-group input-group-lg margin-bottom-3">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-balance-scale" aria-hidden="true"></i>
+                                </span>
+                                <input class="form-control" aria-describedby="basic-addon1" type="number" min="0" max="200" name="weight" id="weight" placeholder="Weight">
+                            </div> 
+                            
+                            <div class="input-group input-group-lg margin-bottom-3">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-balance-scale" aria-hidden="true"></i>
+                                </span>
+                                <input class="form-control" aria-describedby="basic-addon1" type="number" min="0" max="250" name="height" id="height" placeholder="Height">
+                            </div>
+
+                            <div class="input-group input-group-lg margin-bottom-3">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-balance-scale" aria-hidden="true"></i>
+                                </span>
+                                <input class="form-control" aria-describedby="basic-addon1" type="number" min="10" max="100" name="age" id="age" placeholder="Age">
+                            </div>                                                                                                                                        
+
+                        </div>
+                    
+
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <button type="submit" class="btn-block btn-lg btn btn-success">Create new account</button>
+            </div>
+         </div>
+      </div>
+  </div>
     
+}
 }
