@@ -16,6 +16,14 @@
             <div class="panel-body">
                 <div clas="container">
                     <div class="row">
+
+                    @if(flash.contains("fail")) { 
+                        <div class="col-md-12"> 
+                            <div class="alert alert-danger">
+                                @flash.get("fail")
+                            </div>
+                        </div>
+                     }
                     
                      @helper.form(action = routes.Products.add) {             
                         <div class="col-md-12">

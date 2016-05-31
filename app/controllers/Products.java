@@ -36,9 +36,11 @@ public class Products extends Controller {
     public static Result add() {
         Form<Product> filledForm = productForm.bindFromRequest();
         if(filledForm.hasErrors()) {
+            flash("fail", "Invalid product name.");
             return badRequest(newProduct.render(filledForm));
         } else {
             Product.create(filledForm.get());
+            flash("success", "Product has been added succesfully.");
             return redirect(routes.Products.products(0, "name", "asc", ""));
         }
     }
