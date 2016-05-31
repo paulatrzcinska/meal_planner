@@ -29,7 +29,7 @@ public class Product extends Model {
 	@Required
 	public int sugarPer100Grams;
     
-     @OneToMany(mappedBy = "Product")
+     @OneToMany(mappedBy = "product")
 	public List<ProductMeal> productMeals = new ArrayList<>();
     
     public static Finder<Long,Product> find = new Finder(Long.class, Product.class);
