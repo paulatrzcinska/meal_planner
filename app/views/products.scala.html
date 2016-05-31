@@ -1,29 +1,27 @@
 @(currentPage: com.avaje.ebean.Page[Product], currentSortBy: String, currentOrder: String, currentFilter: String)
 
 @link(newPage:Int, newSortBy:String) = @{
-
-	var sortBy = currentSortBy
-	var order = currentOrder
-
-	if(newSortBy != null) {
-		sortBy = newSortBy
-		if(currentSortBy == newSortBy) {
-			if(currentOrder == "asc") {
-				order = "desc"
-			} else {
-				order = "asc"
-			}
-		} else {
-			order = "asc"
-		}
-	}
-
-	routes.Products.products(newPage, sortBy, order, currentFilter)
+    
+    var sortBy = currentSortBy
+    var order = currentOrder
+    
+    if(newSortBy != null) {
+        sortBy = newSortBy
+        if(currentSortBy == newSortBy) {
+            if(currentOrder == "asc") {
+                order = "desc"
+            } else {
+                order = "asc"
+            }
+        } else {
+            order = "asc"
+        }
+    }
+    
+    // Generate the link
+    routes.Products.products(newPage, sortBy, order, currentFilter)
+    
 }
-
-
-@import helper._
-@import helper.twitterBootstrap._
 
 @title = {
     Products
@@ -37,14 +35,30 @@
 
 @main(title, nav="Products") {
 
-    <div id="actions">
-        <form class="form-inline" action="@link(0, "name")" method="GET">
-            <input class="form-control" type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filter by product name...">
-            <input class="actions btn btn-success" type="submit" id="searchsubmit" value="Filter by name">
-        </form>
-    </div>
+    @if(flash.containsKey("success")) {
+        <div class="alert-message warning">
+            <strong>Done!</strong> @flash.get("success")
+        </div>
+    } 
 
-    @if(currentPage.getTotalRowCount == 0) { 
+    <div class="row margin-bottom">
+
+        <div class="col-md-4">
+            <form class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="searchbox" name="f" value="@currentFilter" placeholder="Filter by product name...">
+                    <button class="btn btn-default" id="searchsubmit" type="submit">Search</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-offset-6 col-md-2">
+            <a class="btn btn-success" id="add" href="@routes.Products.add()">Add a new product</a>
+        </div>
+
+    </div>
+    
+    @if(currentPage.getTotalRowCount == 0) {
         
         <div class="well">
             <em>Nothing to display</em>
@@ -55,12 +69,12 @@
         <table class="table table-striped">
             <thead style="font-weight:bold">
                 <tr>
-                    <th>Product name</th>
-                    <th>Calories per 100 grams</th>
-                    <th>Carb per 100 grams</th>
-                    <th>Fat per 100 grams</th>
-                    <th>Protein per 100 grams</th>
-                    <th>Sugar per 100 grams</th>
+                    @header("name", "Product name")
+                    @header("caloriesPer100Grams", "Calories per 100 grams")
+                    @header("carbPer100Grams", "Carb per 100 grams")
+                    @header("fatPer100Grams", "Fat per 100 grams")
+                    @header("proteinPer100Grams", "Protein per 100 grams")
+                    @header("sugarPer100Grams", "Sugar per 100 grams")
                 </tr>
             </thead>
             <tbody>
@@ -79,32 +93,24 @@
             </tbody>
         </table>
 
-        <div id="pagination" class="pagination">
-            <ul>
+        <nav class="text-right">
+            <ul class="pagination">
                 @if(currentPage.hasPrev) {
-                    <li class="prev">
-                        <a href="@link(currentPage.getPageIndex - 1, null)">&larr; Previous</a>
-                    </li>
+                    <li><a href="@link(currentPage.getPageIndex - 1, null)">&laquo;</a></li>
                 } else {
-                    <li class="prev disabled">
-                        <a>&larr; Previous</a>
-                    </li>
+                    <li class="disabled"><a>&laquo;</a></li>
                 }
-                <li class="current">
-                    <a>Displaying @currentPage.getDisplayXtoYofZ(" to ", " of ")</a>
-                </li>
+                <li><a>from @currentPage.getDisplayXtoYofZ(" to "," of ")</a></li>
                 @if(currentPage.hasNext) {
-                <li class="next">
-                    <a href="@link(currentPage.getPageIndex + 1, null)">&larr; Next</a>
-                </li>
+                    <li><a href="@link(currentPage.getPageIndex + 1, null)">&raquo;</a></li>
                 } else {
-                <li class="next disabled">
-                    <a>&larr; Next</a>
-                </li>
+                    <li class="disabled"><a>&rarr;</a></li>
                 }
             </ul>
         </div>
-
+        
     }
-    <a class="pull-right actions btn btn-success" href="@routes.Products.showAddForm()">Add a new product</a>
+        
 }
+
+            
