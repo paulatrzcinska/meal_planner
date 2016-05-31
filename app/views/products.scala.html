@@ -1,4 +1,26 @@
-@(products: List[Product], productForm: Form[Product])
+@(currentPage: com.avaje.ebean.Page[Product], currentSortBy: String, currentOrder: String, currentFilter: String)
+
+@link(newPage:Int, newSortBy:String) = @{
+
+	var sortBy = currentSortBy
+	var order = currentOrder
+
+	if(newSortBy != null) {
+		sortBy = newSortBy
+		if(currentSortBy == newSortBy) {
+			if(currentOrder == "asc") {
+				order = "desc"
+			} else {
+				order = "asc"
+			}
+		} else {
+			order = "asc"
+		}
+	}
+
+	routes.Products.products(newPage, sortBy, order, currentFilter)
+}
+
 
 @import helper._
 @import helper.twitterBootstrap._
@@ -7,8 +29,22 @@
     Products
 }
 
+@header(key:String, title:String) = {
+    <th class="@key.replace(".","_") header @if(currentSortBy == key) @{if(currentOrder == "asc") "headerSortDown" else "headerSortUp"}">
+        <a href="@link(0, key)">@title</a>
+    </th>
+}
+
 @main(title, nav="Products") {
-    @if(products.size() == 0) {
+
+    <div id="actions">
+        <form class="form-inline" action="@link(0, "name")" method="GET">
+            <input class="form-control" type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filter by product name...">
+            <input class="actions btn btn-success" type="submit" id="searchsubmit" value="Filter by name">
+        </form>
+    </div>
+
+    @if(currentPage.getTotalRowCount == 0) { 
         
         <div class="well">
             <em>Nothing to display</em>
@@ -29,7 +65,7 @@
             </thead>
             <tbody>
 
-                @for(product <- products) {
+                @for(product <- currentPage.getList) {
                     <tr>
                         <td>@product.name</td>
                         <td>@product.caloriesPer100Grams</td>
@@ -42,6 +78,32 @@
 
             </tbody>
         </table>
+
+        <div id="pagination" class="pagination">
+            <ul>
+                @if(currentPage.hasPrev) {
+                    <li class="prev">
+                        <a href="@link(currentPage.getPageIndex - 1, null)">&larr; Previous</a>
+                    </li>
+                } else {
+                    <li class="prev disabled">
+                        <a>&larr; Previous</a>
+                    </li>
+                }
+                <li class="current">
+                    <a>Displaying @currentPage.getDisplayXtoYofZ(" to ", " of ")</a>
+                </li>
+                @if(currentPage.hasNext) {
+                <li class="next">
+                    <a href="@link(currentPage.getPageIndex + 1, null)">&larr; Next</a>
+                </li>
+                } else {
+                <li class="next disabled">
+                    <a>&larr; Next</a>
+                </li>
+                }
+            </ul>
+        </div>
 
     }
     <a class="pull-right actions btn btn-success" href="@routes.Products.showAddForm()">Add a new product</a>
