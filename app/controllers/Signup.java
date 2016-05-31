@@ -24,18 +24,21 @@ public class Signup extends Controller {
         // check repeated password
         if(!filledForm.field("password").valueOr("").isEmpty()) {
             if(!filledForm.field("password").valueOr("").equals(filledForm.field("repeatPassword").value())) {
-                filledForm.reject("repeatPassword", "Password don't match");
+                flash("fail", "Passwords don't match.");
+                return badRequest(signup.render(filledForm));
             }
         }
         
         // check if the username is valid
         if(!filledForm.hasErrors()) {
             if(User.validUsername(filledForm.field("username").value()) != null) {
-                filledForm.reject("username", "This username is already taken");
+                flash("fail", "Username is already taken.");
+                return badRequest(signup.render(filledForm));
             }
         }
         
         if(filledForm.hasErrors()) {
+            flash("fail", "Something is wrong.");
             return badRequest(signup.render(filledForm));
         } else {
             User.createAccount(filledForm.get());
