@@ -14,7 +14,21 @@
             <option value="@product.name"></option>
         }
     </datalist>
+    
+    <script type="text/javascript">
+        var products_list = {};
+          @for(product <- products) {
+              products_list["@product.name"] = 
+              {
+                  'calories': @product.caloriesPer100Grams,
+                  'carb': @product.carbPer100Grams,
+                  'fat': @product.fatPer100Grams,
+                  'protein': @product.proteinPer100Grams,
+                  'sugar': @product.sugarPer100Grams};
+          }
+    </script>
 
+    
     <div class="row margin-bottom-2">
 
         <div class="col-md-4">
@@ -33,7 +47,7 @@
     </div>
     
         
-        <table class="table table-striped">
+        <table class="table table-striped"" id="meals-table">
             <thead style="font-weight:bold">
                 <tr>
                     <th>Product name</th>
