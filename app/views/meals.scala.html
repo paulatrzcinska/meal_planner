@@ -1,0 +1,120 @@
+@(currentPage: com.avaje.ebean.Page[Product], currentSortBy: String, currentOrder: String, currentFilter: String)
+
+@link(newPage:Int, newSortBy:String) = @{
+    
+    var sortBy = currentSortBy
+    var order = currentOrder
+    
+    if(newSortBy != null) {
+        sortBy = newSortBy
+        if(currentSortBy == newSortBy) {
+            if(currentOrder == "asc") {
+                order = "desc"
+            } else {
+                order = "asc"
+            }
+        } else {
+            order = "asc"
+        }
+    }
+    
+    // Generate the link
+    routes.Products.products(newPage, sortBy, order, currentFilter)
+    
+}
+
+@title = {
+    Products
+}
+
+@header(key:String, title:String) = {
+    <th class="@key.replace(".","_") header @if(currentSortBy == key) @{if(currentOrder == "asc") "headerSortDown" else "headerSortUp"}">
+        <a href="@link(0, key)">@title</a>
+    </th>
+}
+
+@main(title, nav="Products") {
+
+    @if(flash.containsKey("success")) {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success">
+                    @flash.get("success")
+                </div> 
+            </div>
+        </div>
+    } 
+
+    <div class="row margin-bottom-2">
+
+        <div class="col-md-4">
+            <form class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="searchbox" name="f" value="@currentFilter" placeholder="Filter by product name...">
+                    <button class="btn btn-default" id="searchsubmit" type="submit">Search</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-offset-6 col-md-2">
+            <a class="btn btn-success" id="add" href="@routes.Products.add()">Add a new product</a>
+        </div>
+
+    </div>
+    
+    @if(currentPage.getTotalRowCount == 0) {
+        
+        <div class="well">
+            <em>Nothing to display</em>
+        </div>
+        
+    } else {
+        
+        <table class="table table-striped">
+            <thead style="font-weight:bold">
+                <tr>
+                    @header("name", "Product name")
+                    @header("caloriesPer100Grams", "Calories per 100 grams")
+                    @header("carbPer100Grams", "Carb per 100 grams")
+                    @header("fatPer100Grams", "Fat per 100 grams")
+                    @header("proteinPer100Grams", "Protein per 100 grams")
+                    @header("sugarPer100Grams", "Sugar per 100 grams")
+                </tr>
+            </thead>
+            <tbody>
+
+                @for(product <- currentPage.getList) {
+                    <tr>
+                        <td>@product.name</td>
+                        <td>@product.caloriesPer100Grams</td>
+                        <td>@product.carbPer100Grams</td>
+                        <td>@product.fatPer100Grams</td>
+                        <td>@product.proteinPer100Grams</td>
+                        <td>@product.sugarPer100Grams</td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+        <nav class="text-right">
+            <ul class="pagination">
+                @if(currentPage.hasPrev) {
+                    <li><a href="@link(currentPage.getPageIndex - 1, null)">&laquo;</a></li>
+                } else {
+                    <li class="disabled"><a>&laquo;</a></li>
+                }
+                <li><a>from @currentPage.getDisplayXtoYofZ(" to "," of ")</a></li>
+                @if(currentPage.hasNext) {
+                    <li><a href="@link(currentPage.getPageIndex + 1, null)">&raquo;</a></li>
+                } else {
+                    <li class="disabled"><a>&rarr;</a></li>
+                }
+            </ul>
+        </div>
+        
+    }
+        
+}
+
+            

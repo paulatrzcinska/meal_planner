@@ -18,7 +18,9 @@ public class ProductMeals extends Controller {
     
     @Security.Authenticated
     public static Result showAddForm() {
-        return TODO;
+        return ok(
+            newMeal.render(productMealForm, Product.all())
+            );
     }
     
     public static Result add() {

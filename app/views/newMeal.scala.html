@@ -1,0 +1,75 @@
+@(productMealForm: Form[ProductMeal], products: List[Product])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@title = {
+    Sign Up
+}
+
+@main(title, nav = "signup") {
+
+    <datalist id="products">
+        @for(product <- products) {
+            <option value="@product.name"></option>
+        }
+    </datalist>
+
+    <div class="row margin-bottom-2">
+
+        <div class="col-md-4">
+            <form class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="searchbox" name="f" value="" placeholder="Filter by product name...">
+                    <button class="btn btn-default" id="searchsubmit" type="submit">Search</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-offset-6 col-md-2">
+            <a class="btn btn-success" id="add" onclick="addRow()">Add a new product</a>
+        </div>
+
+    </div>
+    
+        
+        <table class="table table-striped">
+            <thead style="font-weight:bold">
+                <tr>
+                    <th>Product name</th>
+                    <th>Quantity</th>
+                    <th>Calories</th>
+                    <th>Carb</th>
+                    <th>Fat</th>
+                    <th>Protein</th>
+                    <th>Sugar</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+            </tbody>
+        </table>
+
+
+        <nav class="text-right">
+            <ul class="pagination">
+
+                    <li class="disabled"><a>&laquo;</a></li>
+
+                <li><a>uno</a></li>
+                    <li class="disabled"><a>&raquo;</a></li>
+            </ul>
+        </div>
+        
+        
+}
+
+            

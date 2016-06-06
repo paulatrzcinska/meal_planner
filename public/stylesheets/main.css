@@ -64,3 +64,5 @@ option[value=""][disabled] {
 option {
   color: black;
 }
+
+.table input { width: 80%; }

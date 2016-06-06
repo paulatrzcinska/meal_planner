@@ -10,7 +10,7 @@
 @main(title, nav = "newProduct") {
     
 <div class="row additional-space">
-    <div class="col-md-offset-4 col-md-4">
+    <div class="col-md-offset-2 col-md-8">
         <div class="panel panel-default">
             <div class="panel-default panel-heading"><h2>New product</h2></div>
             <div class="panel-body">
@@ -24,9 +24,11 @@
                             </div>
                         </div>
                      }
-                    
+                     </div>
+                         
+                     <div class="row"> 
                      @helper.form(action = routes.Products.add) {             
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="input-group input-group-lg margin-bottom-3">
                                 <span class="input-group-addon">
                                     <i class="fa fa-cutlery" aria-hidden="true"></i>
@@ -47,7 +49,8 @@
                                 </span>
                                 <input class="form-control" min="0" max="100" aria-describedby="basic-addon1" type="number" name="carbPer100Grams" id="carbPer100Grams" placeholder="Carbs per 100 grams">
                             </div>
-
+                        </div>
+                        <div class="col-md-6">
                             <div class="input-group input-group-lg margin-bottom-3">
                                 <span class="input-group-addon">
                                     <i class="fa fa-pie-chart" aria-hidden="true"></i>
@@ -68,10 +71,7 @@
                                 </span>
                                 <input class="form-control" min="0" max="100" aria-describedby="basic-addon1" type="number" name="sugarPer100Grams" id="sugarPer100Grams" placeholder="Sugar per 100 grams">
                             </div>
-
                         </div>
-                    
-
                     </div>
                 </div>
             </div>
