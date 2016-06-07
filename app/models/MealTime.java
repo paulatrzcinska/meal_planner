@@ -16,6 +16,6 @@ public class MealTime extends Model {
     @Required
     public String mealTimeName;
     
-    @OneToMany(mappedBy = "mealTime")
-	public List<ProductMeal> productMeals = new ArrayList<>();
+    //@OneToMany(mappedBy = "mealTime")
+	//public List<ProductMeal> productMeals = new ArrayList<>();
 }

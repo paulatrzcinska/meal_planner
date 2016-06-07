@@ -14,20 +14,29 @@ public class ProductMeal extends Model {
     public Long id;
     
     @ManyToOne
-    public User user;
+    public User owner;
     
-    @OneToMany(mappedBy = "productMeal")
-	public List<Product> products = new ArrayList<>();
+    //@OneToMany(mappedBy = "productMeal")
+	//public List<Product> products = new ArrayList<>();
     
     @ManyToOne
-    public MealTime mealTime;
+    public Product product;
+    
+    //@ManyToOne
+    //public MealTime mealTime;
     
 	@Required
     public int mealWeight;
-    @Required
-    public String mealtimeID;
+    
     @Required
     String date;
+    
+    public ProductMeal(User owner, Product product, int mealWeight, String date){
+        this.owner = owner;
+        this.product = product;
+        this.mealWeight = mealWeight;
+        this.date = date;
+    }
     
     public static Finder<Long,ProductMeal> find = new Finder(
         Long.class, ProductMeal.class

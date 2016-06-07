@@ -23,7 +23,7 @@ public class ProductMeals extends Controller {
             );
     }
     
-    public static Result add() {
+    public static Result create() {
        return TODO;
     }
 

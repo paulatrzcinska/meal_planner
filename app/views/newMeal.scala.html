@@ -24,23 +24,31 @@
                  'carb': @product.carbPer100Grams,
                  'fat': @product.fatPer100Grams,
                  'protein': @product.proteinPer100Grams,
-                 'sugar': @product.sugarPer100Grams};
-             }
+                 'sugar': @product.sugarPer100Grams
+             };
+        }
     </script>
 
+    <script type="text/javascript">
+        var user = @session.get("username");
+        alert(user);
+    </script>
+
+    <script type="text/javascript">
+    function aaa() {
+        var table = document.getElementById("meals-table");
+        for(var i=2; i<=table.rows.length; i++){
+            var productName = table.rows[i].cells[0].childNodes[0].value;
+            var mealWeight = table.rows[i].cells[1].childNodes[0].value;
+                //new ProductMeal(user, product po nazwie, mealweight, current data).save();
+            alert('productName: '+ productName+ ' mealweight: '+ mealWeight);
+            }
+        }
+    </script>
     
     <div class="row margin-bottom-2">
 
-        <div class="col-md-4">
-            <form class="form-inline">
-                <div class="form-group">
-                    <input type="text" class="form-control" id="searchbox" name="f" value="" placeholder="Filter by product name...">
-                    <button class="btn btn-default" id="searchsubmit" type="submit">Search</button>
-                </div>
-            </form>
-        </div>
-
-        <div class="col-md-offset-6 col-md-2">
+        <div class="col-md-offset-10 col-md-2">
             <a class="btn btn-success" id="add" onclick="addRow()">Add a new product</a>
         </div>
 
@@ -69,21 +77,9 @@
                     <td>X</td>
                     <td>X</td>
                     <td></td>
+                    <td></td>
             </tbody>
         </table>
-
-
-        <nav class="text-right">
-            <ul class="pagination">
-
-                    <li class="disabled"><a>&laquo;</a></li>
-
-                <li><a>uno</a></li>
-                    <li class="disabled"><a>&raquo;</a></li>
-            </ul>
-        </div>
-        
-        
 }
 
             
