@@ -1,39 +1,19 @@
-@(currentPage: com.avaje.ebean.Page[Product], currentSortBy: String, currentOrder: String, currentFilter: String)
+@(productMealForm: Form[ProductMeal], meals: List[ProductMeal], d: String)
 
-@link(newPage:Int, newSortBy:String) = @{
-    
-    var sortBy = currentSortBy
-    var order = currentOrder
-    
-    if(newSortBy != null) {
-        sortBy = newSortBy
-        if(currentSortBy == newSortBy) {
-            if(currentOrder == "asc") {
-                order = "desc"
-            } else {
-                order = "asc"
-            }
-        } else {
-            order = "asc"
-        }
-    }
-    
-    // Generate the link
-    routes.Products.products(newPage, sortBy, order, currentFilter)
-    
-}
+@import helper._
+@import helper.twitterBootstrap._
 
 @title = {
-    Products
+    Sign Up
 }
 
-@header(key:String, title:String) = {
-    <th class="@key.replace(".","_") header @if(currentSortBy == key) @{if(currentOrder == "asc") "headerSortDown" else "headerSortUp"}">
-        <a href="@link(0, key)">@title</a>
-    </th>
+@today = @{
+    if(d == "") MealTime.getDate()
+    else d
 }
 
-@main(title, nav="Products") {
+
+@main(title, nav = "signup") {
 
     @if(flash.containsKey("success")) {
         <div class="row">
@@ -50,70 +30,64 @@
         <div class="col-md-4">
             <form class="form-inline">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="searchbox" name="f" value="@currentFilter" placeholder="Filter by product name...">
+                    <input type="date" class="form-control" id="date" name="d" value="@today" onchange="form.submit()">
                     <button class="btn btn-default" id="searchsubmit" type="submit">Search</button>
                 </div>
             </form>
         </div>
 
         <div class="col-md-offset-6 col-md-2">
-            <a class="btn btn-success" id="add" href="@routes.Products.add()">Add a new product</a>
+            <a class="btn btn-success" id="add" href="@routes.ProductMeals.showAddForm(today)">Add a new product</a>
         </div>
 
     </div>
     
-    @if(currentPage.getTotalRowCount == 0) {
-        
-        <div class="well">
-            <em>Nothing to display</em>
-        </div>
-        
-    } else {
-        
-        <table class="table table-striped">
-            <thead style="font-weight:bold">
-                <tr>
-                    @header("name", "Product name")
-                    @header("caloriesPer100Grams", "Calories per 100 grams")
-                    @header("carbPer100Grams", "Carb per 100 grams")
-                    @header("fatPer100Grams", "Fat per 100 grams")
-                    @header("proteinPer100Grams", "Protein per 100 grams")
-                    @header("sugarPer100Grams", "Sugar per 100 grams")
-                </tr>
-            </thead>
-            <tbody>
+    @for(i <- 1 to 5) {
+        @if(!ProductMeal.isEmptyMT(i, today, session.get("username"))) {
+            <h2>@ProductMeal.getMealTimeName(i)</h2>
+                <table class="table table-striped" id="meals-table">
+                    <thead style="font-weight:bold">
+                        <tr>
+                            <th>Product name</th>
+                            <th>Quantity</th>
+                            <th>Calories</th>
+                            <th>Carb</th>
+                            <th>Fat</th>
+                            <th>Protein</th>
+                            <th>Sugar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(meal <- meals) {
+                            @if(meal.mealTime == i && meal.date == today && meal.user == session.get("username")) {
+                            <tr>
+                                <td>@meal.product</td>
+                                <td>@meal.mealWeight</td>
+                                <td>@{Product.getProductByName(meal.product).caloriesPer100Grams * meal.mealWeight}</td>
+                                <td>@{Product.getProductByName(meal.product).carbPer100Grams * meal.mealWeight}</td>
+                                <td>@{Product.getProductByName(meal.product).fatPer100Grams * meal.mealWeight}</td>
+                                <td>@{Product.getProductByName(meal.product).proteinPer100Grams * meal.mealWeight}</td>
+                                <td>@{Product.getProductByName(meal.product).sugarPer100Grams * meal.mealWeight}</td>
+                            </tr>
+                            }
+                        }
+                            <tr>
+                                <td style="font-weight: bold">Summary</td>
+                                <td>-</td>
+                                <td>@{ProductMeal.getSummary(i, today){0}}</td>
+                                <td>@{ProductMeal.getSummary(i, today){1}}</td>
+                                <td>@{ProductMeal.getSummary(i, today){2}}</td>
+                                <td>@{ProductMeal.getSummary(i, today){3}}</td>
+                                <td>@{ProductMeal.getSummary(i, today){4}}</td>
+                            </tr>
 
-                @for(product <- currentPage.getList) {
-                    <tr>
-                        <td>@product.name</td>
-                        <td>@product.caloriesPer100Grams</td>
-                        <td>@product.carbPer100Grams</td>
-                        <td>@product.fatPer100Grams</td>
-                        <td>@product.proteinPer100Grams</td>
-                        <td>@product.sugarPer100Grams</td>
-                    </tr>
-                }
-
-            </tbody>
-        </table>
-
-        <nav class="text-right">
-            <ul class="pagination">
-                @if(currentPage.hasPrev) {
-                    <li><a href="@link(currentPage.getPageIndex - 1, null)">&laquo;</a></li>
-                } else {
-                    <li class="disabled"><a>&laquo;</a></li>
-                }
-                <li><a>from @currentPage.getDisplayXtoYofZ(" to "," of ")</a></li>
-                @if(currentPage.hasNext) {
-                    <li><a href="@link(currentPage.getPageIndex + 1, null)">&raquo;</a></li>
-                } else {
-                    <li class="disabled"><a>&rarr;</a></li>
-                }
-            </ul>
-        </div>
-        
+                    </tbody>
+                </table>
+        }
     }
+    
+        
+
         
 }
 

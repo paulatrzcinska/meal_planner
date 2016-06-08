@@ -27,7 +27,9 @@ public class Login extends Controller {
         } else {
             if(User.auth(filledForm.get().username, filledForm.get().password) != null) {
                 session().clear();
-                session("username", "paula");
+                session("username", filledForm.get().username);
+                //session("username_id", Integer.ToString(User.find.where().eq("username", "paula").findUnique().id));
+                session("username_id", Integer.toString(User.validUsername(filledForm.get().username).id));
                 session("logged", "true");
                 flash("success", "Login successfully.");
             }

@@ -20,9 +20,13 @@ GET     /products/add               controllers.Products.showAddForm()
 POST    /products/add               controllers.Products.add()
 
 # Meals
-GET     /meals                      controllers.ProductMeals.index()
-GET     /meals/add                  controllers.ProductMeals.showAddForm()
-POST    /meals/add                  controllers.ProductMeals.showAddForm()
+GET     /meals                      controllers.ProductMeals.index(d:String ?= "")
+GET     /meals/add                  controllers.ProductMeals.showAddForm(d:String ?= "")
+POST    /meals/add                  controllers.ProductMeals.add()
+
+##GET		/meals/add 					controllers.ProductMeals.add()
+##POST	/meals/add 					controllers.ProductMeals.add()
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

@@ -1,89 +1,87 @@
-@(productMealForm: Form[ProductMeal], products: List[Product])
+@(productMealForm: Form[ProductMeal], products: List[Product], d: String)
 
 @import helper._
 @import helper.twitterBootstrap._
 
 @title = {
-    Sign Up
+    Add new product 
 }
 
-@main(title, nav = "signup") {
+@today = @{
+    if(d == "") MealTime.getDate()
+    else d
+}
 
-    <datalist id="products">
-        @for(product <- products) {
-            <option value="@product.name"></option>
-        }
-    </datalist>
-    
-    <script type="text/javascript">
-        var products_list = {};
-         @for(product <- products) {
-             products_list["@product.name"] = 
-             {
-                 'calories': @product.caloriesPer100Grams,
-                 'carb': @product.carbPer100Grams,
-                 'fat': @product.fatPer100Grams,
-                 'protein': @product.proteinPer100Grams,
-                 'sugar': @product.sugarPer100Grams};
-             }
-    </script>
+@main(title, nav = "newProduct") {
 
-    
-    <div class="row margin-bottom-2">
+<datalist id="products">
+    @for(product <- products) {
+        <option value="@product.name"></option>
+    }
+</datalist>
 
-        <div class="col-md-4">
-            <form class="form-inline">
-                <div class="form-group">
-                    <input type="text" class="form-control" id="searchbox" name="f" value="" placeholder="Filter by product name...">
-                    <button class="btn btn-default" id="searchsubmit" type="submit">Search</button>
+<div class="row additional-space">
+    <div class="col-md-offset-2 col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-default panel-heading"><h2>New meal</h2></div>
+            <div class="panel-body">
+                <div clas="container">
+                    <div class="row">
+
+                    @if(flash.contains("fail")) { 
+                        <div class="col-md-12"> 
+                            <div class="alert alert-danger">
+                                @flash.get("fail")
+                            </div>
+                        </div>
+                     }
+                     </div>
+                         
+                     @helper.form(action = routes.ProductMeals.add) {
+                     <div class="row"> 
+                        <div class="col-md-12">
+                            <div class="input-group input-group-lg margin-bottom-3">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                </span>
+                                <select id="mealTime" class="form-control selectpicker" aria-describedby="basic-addon1" name="mealTime" placeholder="Meal Time">
+                                    <option value="1">Breakfast</option>
+                                    <option value="2">Brunch</option>
+                                    <option value="3">Dinner</option>
+                                    <option value="4">Tea</option>
+                                    <option value="5">Supper</option>
+                                </select>    
+                            </div>
+                        </div>
+                    </div>
+
+                     <div class="row"> 
+                        <div class="col-md-6">
+                            <div class="input-group input-group-lg margin-bottom-3">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-cutlery" aria-hidden="true"></i>
+                                </span>
+                                <input class="form-control" aria-describedby="basic-addon1" type="text" name="product" id="product" placeholder="Product name" list="products">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group input-group-lg margin-bottom-3">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-balance-scale" aria-hidden="true"></i>
+                                </span>
+                                <input class="form-control" min="1" aria-describedby="basic-addon1" type="number" name="mealWeight" id="mealWeight" placeholder="Quantity">
+                                <input type="hidden" value="@today" name="d">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </form>
-        </div>
-
-        <div class="col-md-offset-6 col-md-2">
-            <a class="btn btn-success" id="add" onclick="addRow()">Add a new product</a>
-        </div>
-
-    </div>
+            </div>
+            <div class="panel-footer">
+                <button type="submit" class="btn-block btn-lg btn btn-success">Add new meal</button>
+            </div>
+            }
+         </div>
+      </div>
+  </div>
     
-        
-        <table class="table table-striped" id="meals-table">
-            <thead style="font-weight:bold">
-                <tr>
-                    <th>Product name</th>
-                    <th>Quantity</th>
-                    <th>Calories</th>
-                    <th>Carb</th>
-                    <th>Fat</th>
-                    <th>Protein</th>
-                    <th>Sugar</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-            </tbody>
-        </table>
-
-
-        <nav class="text-right">
-            <ul class="pagination">
-
-                    <li class="disabled"><a>&laquo;</a></li>
-
-                <li><a>uno</a></li>
-                    <li class="disabled"><a>&raquo;</a></li>
-            </ul>
-        </div>
-        
-        
 }
-
-            

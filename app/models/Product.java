@@ -29,8 +29,6 @@ public class Product extends Model {
 	@Required
 	public int sugarPer100Grams;
     
-    @ManyToOne
-    public ProductMeal productMeal;
     
     public static Finder<Long,Product> find = new Finder(Long.class, Product.class);
     
@@ -45,6 +43,10 @@ public class Product extends Model {
 		    .findPagingList(pageSize)
 		    .setFetchAhead(false)
 		    .getPage(page);
+    }
+
+    public static Product getProductByName(String product) {
+        return find.where().eq("name", product).findUnique();
     }
 
     public static void create(Product product) {

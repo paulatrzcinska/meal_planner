@@ -23,7 +23,7 @@ function addRow() {
         	.append($('<input type="number" class="form-control" disabled>'))
         )
         .append($('<td>')
-            .append($('<a class="btn btn-default">Dodaj</button>'))
+            .append($('<a class="btn btn-default" onclick="aaa()">Dodaj</button>'))
         )   
     );
 }
