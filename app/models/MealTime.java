@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+
 public class MealTime {
 	public static String getDate() {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -14,3 +15,4 @@ public class MealTime {
         return df.format(today);
     }
 }
+
